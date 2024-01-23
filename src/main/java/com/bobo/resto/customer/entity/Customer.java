@@ -1,6 +1,7 @@
 package com.bobo.resto.customer.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,22 +26,46 @@ import java.util.Collection;
 @DynamicInsert
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
 public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName;
     private String lastName;
+
+    @Email(
+            message = "Email is not valid",
+            regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"
+    )
     private String email;
     private String username;
     private String password;
 
+    @CreatedDate
+    @Column(
+            nullable = false,
+            updatable = false
+    )
     private LocalDateTime createdAt;
 
+    @LastModifiedDate
+    @Column(
+            insertable = false
+    )
     private LocalDateTime lastModified;
 
+    @CreatedBy
+    @Column(
+            nullable = false,
+            updatable = false
+    )
     private Long createdBy;
 
+    @LastModifiedBy
+    @Column(
+            insertable = false
+    )
     private Long lastModifiedBy;
 
     @ManyToMany(fetch = FetchType.EAGER)

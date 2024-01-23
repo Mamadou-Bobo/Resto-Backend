@@ -32,13 +32,19 @@ class CustomerServiceImpl implements CustomerService {
     @Override
     public ResponseEntity<String> registerCustomer(CustomerRegistrationDTO customerRegistrationDTO) {
         log.info("Adding new user");
-        Customer customer = customerRegistrationDTOMapper
-                .apply(customerRegistrationDTO);
-        customer.setPassword(
-                passwordEncoder
-                .encode(customerRegistrationDTO.password()));
-        customerRepository.save(customer);
-        return ResponseEntity.ok("User registered successfully");
+        if(customerRepository.findByUsername(customerRegistrationDTO.username()).isEmpty()) {
+            Customer customer = customerRegistrationDTOMapper
+                    .apply(customerRegistrationDTO);
+            customer.setPassword(
+                    passwordEncoder
+                            .encode(customerRegistrationDTO.password()));
+            customerRepository.save(customer);
+            return ResponseEntity.ok("User registered successfully");
+        }
+        return new ResponseEntity<>(
+                "Username " + customerRegistrationDTO.username() + " is not available",
+                HttpStatus.CONFLICT
+        );
     }
 
     @Override
