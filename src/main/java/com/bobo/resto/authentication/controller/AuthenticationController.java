@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.bobo.resto.shared.utils.Constant.BASE_API;
+import static com.bobo.resto.shared.util.Constant.BASE_API;
 
 /**
  * @author Mamadou Bobo on 21/01/2023

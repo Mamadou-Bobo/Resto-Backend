@@ -8,14 +8,16 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static com.bobo.resto.shared.utils.Constant.*;
+import static com.bobo.resto.shared.util.Constant.*;
 
 @SpringBootApplication
+@EnableTransactionManagement
 public class RestoApplication {
 
 	public static void main(String[] args) {

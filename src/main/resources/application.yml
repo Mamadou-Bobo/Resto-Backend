@@ -15,3 +15,14 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: csvmapping12@gmail.com
+    password: kjla icrd eyrq ddcc
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

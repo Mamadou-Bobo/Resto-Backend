@@ -11,7 +11,6 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,7 +23,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
-import static com.bobo.resto.shared.utils.Constant.BASE_API;
+import static com.bobo.resto.shared.util.Constant.BASE_API;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 /**
@@ -56,7 +55,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers(BASE_API + "/auth/authenticate")
+                        .requestMatchers(
+                                BASE_API + "/auth/authenticate",
+                                BASE_API + "/password/reset/code"
+                        )
                         .permitAll()
                         .requestMatchers(BASE_API + "/customers/**").hasRole("SYS_ADMIN")
                         .anyRequest().authenticated()

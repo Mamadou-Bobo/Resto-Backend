@@ -17,6 +17,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import static com.bobo.resto.shared.util.Constant.ACCESS_TOKEN_DURATION;
+import static com.bobo.resto.shared.util.Constant.REFRESH_TOKEN_DURATION;
+
 /**
  * @author Mamadou Bobo on 21/01/2023
  * @project CsvMapping
@@ -25,8 +28,6 @@ import java.util.function.Function;
 @Component
 @Slf4j
 public class JwtService {
-
-    private int tokenDuration;
 
     private static final String SECRET = "327235753778214125442A472D4B6150645367566B59703373367639792F423F";
 
@@ -68,12 +69,9 @@ public class JwtService {
     }
 
     private JwtResponseDto createToken(Map<String, Object> claims, String username, Authentication authentication) {
-        tokenDuration = 60 * 60 * 1000;
+        String access_token = JwtTokenUtil.generateToken(claims,username,authentication,getSignKey(),ACCESS_TOKEN_DURATION);
 
-        String access_token = JwtTokenUtil.generateToken(claims,username,authentication,getSignKey(),tokenDuration);
-
-        tokenDuration = 60 * 1440 * 1000;
-        String refresh_token = JwtTokenUtil.generateToken(claims,username,authentication,getSignKey(),tokenDuration);
+        String refresh_token = JwtTokenUtil.generateToken(claims,username,authentication,getSignKey(),REFRESH_TOKEN_DURATION);
 
         return new JwtResponseDto(access_token,refresh_token);
     }

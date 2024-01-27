@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.bobo.resto.shared.utils.Constant.BASE_API;
+import static com.bobo.resto.shared.util.Constant.BASE_API;
 
 @RestController
 @RequestMapping(BASE_API + "/customers")

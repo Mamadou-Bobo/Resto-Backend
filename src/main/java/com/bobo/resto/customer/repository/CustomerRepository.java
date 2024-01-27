@@ -13,6 +13,7 @@ import java.util.Optional;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer,Long> {
     Optional<Customer> findByUsername(String username);
+    Optional<Customer> findByEmail(String email);
 
     @Query(value = "select * from customer where id != value", nativeQuery = true)
     List<CustomerDTO> getUsers(String value, Pageable pageable);
