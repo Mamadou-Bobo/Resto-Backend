@@ -1,5 +1,6 @@
 package com.bobo.resto.customer.controller;
 
+import com.bobo.resto.customer.dto.ResetPasswordRequestDTO;
 import com.bobo.resto.customer.service.ResetPasswordService;
 import com.bobo.resto.email.dto.EmailDTO;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,14 @@ public class ResetPasswordController {
 
     private final ResetPasswordService resetPasswordService;
 
-    @PostMapping("/reset/code")
+    @PostMapping("/verify-account")
     public ResponseEntity<String> sendResetPasswordCode(@RequestBody EmailDTO emailDTO) {
         return resetPasswordService.sendResetPasswordCode(emailDTO);
+    }
+
+    @PostMapping("reset-password")
+    public  ResponseEntity<String> resetPassword(@RequestBody ResetPasswordRequestDTO
+                                                             resetPasswordRequestDTO) {
+        return resetPasswordService.resetPassword(resetPasswordRequestDTO);
     }
 }

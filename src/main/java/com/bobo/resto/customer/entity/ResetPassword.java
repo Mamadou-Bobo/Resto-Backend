@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -17,11 +16,8 @@ public class ResetPassword {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String token;
-
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false, name = "user_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
     private Customer customer;
 
     @Column(nullable = false)
@@ -36,13 +32,11 @@ public class ResetPassword {
     @Column(nullable = false)
     private boolean isTokenActive;
 
-    public ResetPassword(String token,
-                         Customer customer,
+    public ResetPassword(Customer customer,
                          Date expiryDate,
                          Date issuedAt,
                          String code,
                          boolean isTokenActive) {
-        this.token = token;
         this.customer = customer;
         this.expiryDate = expiryDate;
         this.issuedAt = issuedAt;

@@ -57,7 +57,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(
                                 BASE_API + "/auth/authenticate",
-                                BASE_API + "/password/reset/code"
+                                BASE_API + "/password/verify-account",
+                                BASE_API + "/password/reset-password"
                         )
                         .permitAll()
                         .requestMatchers(BASE_API + "/customers/**").hasRole("SYS_ADMIN")

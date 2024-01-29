@@ -80,6 +80,9 @@ public class Customer implements Serializable {
     )
     private Collection<Role> roles;
 
+    @OneToMany(mappedBy="customer")
+    private Collection<ResetPassword> resetPassword;
+
     public Customer(String firstName,
                     String lastName,
                     String username,
